@@ -31,9 +31,11 @@ jobs:
         with:
           nix_path: nixpkgs=channel:nixos-unstable
       - name: Fetch Nix Packages
-        run: nix-shell --run 'true'
+        run: true
+        shell: nix-shell --run "bash {0}"
       - name: Generate
-        run: nix-shell --run 'make generate'
+        run: make generate
+        shell: nix-shell --run "bash {0}"
       - name: go clean -testcache
         run: go clean -testcache
       - name: go test
@@ -50,7 +52,8 @@ jobs:
         with:
           nix_path: nixpkgs=channel:nixos-unstable
       - name: Fetch Nix Packages
-        run: nix-shell --run 'true'
+        run: true
+        shell: nix-shell --run "bash {0}"
       - run: ./ci-checks.sh
   validation:
     runs-on: ubuntu-latest
