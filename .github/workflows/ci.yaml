@@ -36,8 +36,9 @@ jobs:
           nix_path: nixpkgs=channel:nixos-unstable
       - name: Fetch Nix Packages
         run: true
-      - name: Generate
-        run: make generate
+      - name: Fetch Go Deps
+        run: go get -t ./...
+      - run: make generate
       - name: go clean -testcache
         run: go clean -testcache
       - name: go test
@@ -84,6 +85,8 @@ jobs:
           nix_path: nixpkgs=channel:nixos-unstable
       - name: Fetch Nix Packages
         run: true
+      - name: Fetch Go Deps
+        run: go get ./...
       - run: make crosscompile -j$(nproc)
       - name: Upload tink-cli binaries
         uses: actions/upload-artifact@v2
